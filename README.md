@@ -14,8 +14,8 @@ Future releases will include other video file types and will add Graphical User 
 You can also use GIFs as wallpaper. 
 
 To Use:
-'''
+```
   pip install imageio 
   and
   pip install opencv-python
-'''
+```
