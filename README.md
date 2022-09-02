@@ -1,4 +1,4 @@
-# Gif-Creator
+# Gif-Creator/Converter
 
 I created this application to use GIFs as wallpaper and to
 help users create GIFs using Python with their own mp4 files.
