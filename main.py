@@ -1,9 +1,9 @@
 import cv2
-import imageio
+import imageio.v2 as imageio
 import os
 from pathlib import Path
 import time
-
+from tqdm.auto import tqdm
 
 def video_to_frames(filelocation):  # a function that selects an mp4 file that will convert it into images.
     print(filelocation)
@@ -16,14 +16,15 @@ def video_to_frames(filelocation):  # a function that selects an mp4 file that w
     file_folder = os.getcwd() + f"\\imgs\\{filename}\\"
     os.mkdir(file_folder)
     path = file_folder + "image_{}"
-
+    pbar = tqdm(desc="Slicing Images", unit='Images')
     while mp4file.isOpened():  # Checks if mp4File is still running.
-        print("Doing Something")
         ret, frame = mp4file.read()
         if ret == False:
             break
-        cv2.imwrite(path.format(str(num)) + '.jpg', frame)
-        num += 1
+        else:
+            cv2.imwrite(path.format(str(num)) + '.jpg', frame)
+            num += 1
+            pbar.update()
 
     mp4file.release()
     cv2.destroyAllWindows()
@@ -35,9 +36,10 @@ def images_to_gif(filename):
     print("Converting Images To GIF...")
     paths = sorted(Path(os.getcwd() + f"//imgs//{filename}//").iterdir(), key=os.path.getmtime)
     images = []
-    print("Creating GIF...")
+    pbar = tqdm(desc='Creating Gif', unit="Images")
     for each_image in paths:
         images.append(imageio.imread(each_image))
+        pbar.update()
     output = "gifs/" + filename + ".gif"
     imageio.mimsave(output, images, fps=30)  # fps var can be changed to 15, 24, 60
     print("GIF Created!")
