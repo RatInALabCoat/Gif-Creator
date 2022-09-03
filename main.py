@@ -60,8 +60,11 @@ def dir_check():
 def user_input():
     print("File Available: {Select the number you want to use or path from directory}")
     vid_list = os.listdir(os.getcwd() + "//vid")
-    [print(f"{files} - {vid_list.index(files) + 1}") for files in vid_list] if len(vid_list) != 0 else print(
-        "No Files Available")
+    if len(vid_list) != 0:
+        for files in vid_list:
+            print(f"{files} - {vid_list.index(files) + 1}")
+    else:
+        print("No Files Available")
 
     while True:
         user_in = input("File: ")
